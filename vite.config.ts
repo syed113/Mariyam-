@@ -6,12 +6,11 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
-    host: true
+    host: '0.0.0.0'
   },
-  base: process.env.NODE_ENV === 'production' ? '/' : '/',
+  base: '/',
   build: {
     outDir: 'dist',
-    sourcemap: true,
-    minify: 'terser'
+    sourcemap: true
   }
 })
