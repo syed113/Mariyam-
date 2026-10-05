@@ -9,18 +9,21 @@ export const HERO_ASSETS = {
   // Main Homepage Campaign Flatlay: Luxury beauty cosmetics on marble with rose petals and gold accents
   homeHero: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=1200&q=85',
   homeHeroSecondary: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1000&q=85',
-  
+
+  // Luxury flatlay used by the homepage hero card
+  luxuryFlatlay: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1200&q=85',
+
   // Bridal Atelier: Opulent bridal beauty trousseau with golden kundan jewelry & camera-flash perfection
   bridalHero: 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=1200&q=85',
   bridalFlatlay: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=85',
-  
+
   // Bespoke Gifting Box: Satin ribbon gift hamper with sealed note and curated cosmetics
   giftingHamper: 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=1000&q=85',
   giftingUnboxing: 'https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=1000&q=85',
-  
+
   // AI Shade & Complexion Studio: Diverse South Asian foundation swatch drips and pipette drops
   aiComplexion: 'https://images.unsplash.com/photo-1516972810927-80185027ca84?auto=format&fit=crop&w=1000&q=85',
-  
+
   // Clinical Skincare Science: Dropper bottles and botanical formulation laboratory
   skincareScience: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1000&q=85',
 };
