@@ -8,6 +8,9 @@ import PinterestIcon from '@mui/icons-material/Pinterest';
 import EmailIcon from '@mui/icons-material/Email';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PhoneIcon from '@mui/icons-material/Phone';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import CreditCardIcon from '@mui/icons-material/CreditCard';
+import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
 
 export const Footer: React.FC = () => {
   const [emailSubscribed, setEmailSubscribed] = React.useState(false);
@@ -52,7 +55,7 @@ export const Footer: React.FC = () => {
               </Typography>
             </Box>
             <Typography variant="body2" sx={{ color: '#A0A0A0', lineHeight: 1.8, mb: 3, maxWidth: 360 }}>
-              Mastering the delicate harmony between natural luminosity and editorial drama. Available worldwide for high-profile weddings, red carpets, editorial productions, and bespoke private education.
+              &ldquo;Your Beauty, Your Power!&rdquo; — High-performance cosmetic formulations engineered with clinical skincare actives. Designed to endure flash photography, banquets, and all-day humidity.
             </Typography>
             <Box sx={{ display: 'flex', gap: 1.5 }}>
               <IconButton
@@ -79,31 +82,34 @@ export const Footer: React.FC = () => {
           {/* Quick Links */}
           <Grid item xs={6} sm={4} md={2}>
             <Typography variant="h6" sx={{ color: '#D4A373', mb: 2.5, fontSize: '0.8rem', letterSpacing: '0.15em' }}>
-              Artistry
+              Online Store
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-              <Typography component={Link} to="/portfolio" sx={{ color: '#A0A0A0', textDecoration: 'none', fontSize: '0.88rem', '&:hover': { color: '#ffffff' } }}>
-                Portfolio Gallery
+              <Typography component={Link} to="/shop" sx={{ color: '#A0A0A0', textDecoration: 'none', fontSize: '0.88rem', '&:hover': { color: '#ffffff' } }}>
+                Shop All Formulations
               </Typography>
-              <Typography component={Link} to="/services" sx={{ color: '#A0A0A0', textDecoration: 'none', fontSize: '0.88rem', '&:hover': { color: '#ffffff' } }}>
-                Bridal Experiences
+              <Typography component={Link} to="/shop?cat=Makeup" sx={{ color: '#A0A0A0', textDecoration: 'none', fontSize: '0.88rem', '&:hover': { color: '#ffffff' } }}>
+                Face & Complexion
               </Typography>
-              <Typography component={Link} to="/services" sx={{ color: '#A0A0A0', textDecoration: 'none', fontSize: '0.88rem', '&:hover': { color: '#ffffff' } }}>
-                Red Carpet & Gala
+              <Typography component={Link} to="/shop?cat=Skincare" sx={{ color: '#A0A0A0', textDecoration: 'none', fontSize: '0.88rem', '&:hover': { color: '#ffffff' } }}>
+                Clinical Skincare
               </Typography>
-              <Typography component={Link} to="/services" sx={{ color: '#A0A0A0', textDecoration: 'none', fontSize: '0.88rem', '&:hover': { color: '#ffffff' } }}>
-                Editorial Day Rates
+              <Typography component={Link} to="/quiz" sx={{ color: '#A0A0A0', textDecoration: 'none', fontSize: '0.88rem', '&:hover': { color: '#ffffff' } }}>
+                AI Shade Matcher
               </Typography>
-              <Typography component={Link} to="/tutorials" sx={{ color: '#A0A0A0', textDecoration: 'none', fontSize: '0.88rem', '&:hover': { color: '#ffffff' } }}>
-                Beauty Journal
+              <Typography component={Link} to="/routine-builder" sx={{ color: '#A0A0A0', textDecoration: 'none', fontSize: '0.88rem', '&:hover': { color: '#ffffff' } }}>
+                Routine Generator
+              </Typography>
+              <Typography component={Link} to="/account" sx={{ color: '#A0A0A0', textDecoration: 'none', fontSize: '0.88rem', '&:hover': { color: '#ffffff' } }}>
+                My Account & Orders
               </Typography>
             </Box>
           </Grid>
 
-          {/* Studio Contact */}
+          {/* Customer Care & Policies */}
           <Grid item xs={6} sm={4} md={3}>
             <Typography variant="h6" sx={{ color: '#D4A373', mb: 2.5, fontSize: '0.8rem', letterSpacing: '0.15em' }}>
-              Studio & Atelier
+              Atelier & Support
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
@@ -115,7 +121,7 @@ export const Footer: React.FC = () => {
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <EmailIcon sx={{ color: '#D4A373', fontSize: 18 }} />
                 <Typography variant="body2" sx={{ color: '#A0A0A0' }}>
-                  atelier@mariyam-maquillage.com
+                  concierge@mariyammaquillage.com
                 </Typography>
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -124,24 +130,27 @@ export const Footer: React.FC = () => {
                   +1 (212) 555-GLAM
                 </Typography>
               </Box>
-              <Typography variant="caption" sx={{ color: '#777777', mt: 1 }}>
-                Studio visits by appointment only. Destination travel available upon request.
-              </Typography>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 0.5 }}>
+                <LocalShippingOutlinedIcon sx={{ color: '#D4A373', fontSize: 18 }} />
+                <Typography variant="caption" sx={{ color: '#bbb' }}>
+                  Complimentary Express on orders ₹999+
+                </Typography>
+              </Box>
             </Box>
           </Grid>
 
-          {/* Beauty Journal VIP */}
+          {/* Newsletter VIP */}
           <Grid item xs={12} sm={4} md={3}>
             <Typography variant="h6" sx={{ color: '#D4A373', mb: 2.5, fontSize: '0.8rem', letterSpacing: '0.15em' }}>
-              The Private List
+              The VIP Circle
             </Typography>
             <Typography variant="body2" sx={{ color: '#A0A0A0', mb: 2 }}>
-              Receive seasonal bridal trend reports, masterclass calendar releases, and secret pro product breakdowns.
+              Sign up for 20% off your first order, private product drops, and beauty masterclass guides.
             </Typography>
             {emailSubscribed ? (
               <Box sx={{ p: 2, bgcolor: 'rgba(212, 163, 115, 0.1)', borderRadius: 1, border: '1px solid #D4A373' }}>
                 <Typography variant="body2" sx={{ color: '#D4A373', fontWeight: 600 }}>
-                  ✓ Welcome to the Atelier Circle.
+                  ✓ Welcome! Use code LUXE20 for 20% off.
                 </Typography>
               </Box>
             ) : (
@@ -173,7 +182,7 @@ export const Footer: React.FC = () => {
                     '&:hover': { bgcolor: '#c39263' },
                   }}
                 >
-                  Join Newsletter
+                  Claim 20% VIP Code
                 </Button>
               </Box>
             )}
@@ -184,18 +193,17 @@ export const Footer: React.FC = () => {
 
         <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'space-between', alignItems: 'center', gap: 2 }}>
           <Typography variant="caption" sx={{ color: '#666666' }}>
-            © {new Date().getFullYear()} Mariyam Maquillage. All Rights Reserved. Designed for elegance & timeless beauty.
+            © {new Date().getFullYear()} Mariyam Maquillage. Inspired by Nykaa & Sephora. All Rights Reserved.
           </Typography>
-          <Box sx={{ display: 'flex', gap: 3 }}>
-            <Typography variant="caption" sx={{ color: '#666666', cursor: 'pointer', '&:hover': { color: '#999' } }}>
-              Privacy Policy
-            </Typography>
-            <Typography variant="caption" sx={{ color: '#666666', cursor: 'pointer', '&:hover': { color: '#999' } }}>
-              Terms of Booking
-            </Typography>
-            <Typography variant="caption" sx={{ color: '#666666', cursor: 'pointer', '&:hover': { color: '#999' } }}>
-              Sanitation Protocol
-            </Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: '#777', fontSize: '0.75rem' }}>
+              <LockOutlinedIcon sx={{ fontSize: 14, color: '#D4A373' }} />
+              <span>256-Bit SSL Encrypted</span>
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: '#777', fontSize: '0.75rem' }}>
+              <CreditCardIcon sx={{ fontSize: 14, color: '#D4A373' }} />
+              <span>Cards · UPI · Netbanking · COD</span>
+            </Box>
           </Box>
         </Box>
       </Container>

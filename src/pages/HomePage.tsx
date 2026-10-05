@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import {
   Box,
@@ -9,229 +9,177 @@ import {
   Card,
   CardMedia,
   CardContent,
-  Chip,
-  Rating,
-  Avatar,
   Paper,
 } from '@mui/material';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import DiamondIcon from '@mui/icons-material/Diamond';
-import VerifiedIcon from '@mui/icons-material/Verified';
+import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
+import VerifiedUserOutlinedIcon from '@mui/icons-material/VerifiedUserOutlined';
+import SpaOutlinedIcon from '@mui/icons-material/SpaOutlined';
 import StarIcon from '@mui/icons-material/Star';
-import { PORTFOLIO_LOOKS, SERVICE_PACKAGES, TESTIMONIALS } from '../data/mockData';
-import { PortfolioLook } from '../types';
-import { LookDetailModal } from '../components/LookDetailModal';
-import { ShadeMatchTool } from '../components/ShadeMatchTool';
+import { useStore } from '../context/StoreContext';
+import { ProductCard } from '../components/product/ProductCard';
+import { INITIAL_ARTICLES } from '../data/initialCatalog';
+import { HERO_ASSETS, CATEGORY_ASSETS } from '../data/visualAssets';
+
+const CATEGORY_CARDS = CATEGORY_ASSETS;
 
 export const HomePage: React.FC = () => {
-  const [selectedLook, setSelectedLook] = useState<PortfolioLook | null>(null);
+  const { products, setIsAdvisorOpen } = useStore();
 
-  const featuredLooks = PORTFOLIO_LOOKS.slice(0, 4);
+  const bestsellers = products.filter((p) => p.isBestseller || p.isFeatured).slice(0, 4);
 
   return (
     <Box sx={{ overflowX: 'hidden' }}>
-      {/* Hero Section */}
+      {/* 1. Hero Campaign Banner */}
       <Box
         sx={{
           position: 'relative',
-          minHeight: { xs: '85vh', md: '92vh' },
-          display: 'flex',
-          alignItems: 'center',
-          background: 'linear-gradient(180deg, #FAF8F5 0%, #F5EFEB 100%)',
+          bgcolor: '#FAF8F5',
           borderBottom: '1px solid rgba(183, 110, 121, 0.15)',
-          overflow: 'hidden',
-          pt: { xs: 4, md: 6 },
-          pb: { xs: 6, md: 8 },
+          py: { xs: 6, md: 10 },
         }}
       >
-        {/* Subtle Decorative Elements */}
-        <Box
-          sx={{
-            position: 'absolute',
-            top: -100,
-            right: -100,
-            width: 450,
-            height: 450,
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(183, 110, 121, 0.12) 0%, rgba(255, 255, 255, 0) 70%)',
-            pointerEvents: 'none',
-          }}
-        />
-
         <Container maxWidth="xl">
           <Grid container spacing={6} alignItems="center">
-            {/* Left Headline Col */}
-            <Grid item xs={12} md={7}>
-              <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, px: 2, py: 0.8, bgcolor: 'rgba(183, 110, 121, 0.12)', borderRadius: 20, mb: 3 }}>
+            {/* Left Content */}
+            <Grid item xs={12} md={6}>
+              <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, px: 2, py: 0.6, bgcolor: 'rgba(183, 110, 121, 0.1)', borderRadius: 20, mb: 3 }}>
                 <AutoAwesomeIcon sx={{ color: '#B76E79', fontSize: 16 }} />
-                <Typography variant="caption" sx={{ color: '#8C4852', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase' }}>
-                  Haute Artistry & Luxury Bridal Atelier
+                <Typography variant="caption" sx={{ color: '#8C4852', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+                  The Haute Beauty Destination
                 </Typography>
               </Box>
 
               <Typography
                 variant="h1"
                 sx={{
-                  fontSize: { xs: '2.8rem', sm: '3.8rem', md: '4.8rem' },
+                  fontSize: { xs: '2.8rem', sm: '3.8rem', md: '4.6rem' },
                   lineHeight: 1.08,
                   fontWeight: 700,
                   color: '#1a1a1a',
-                  mb: 3,
+                  mb: 2.5,
                 }}
               >
-                Unveiling Your Most{' '}
-                <Box
-                  component="span"
-                  sx={{
-                    fontStyle: 'italic',
-                    color: '#B76E79',
-                    fontFamily: '"Cormorant Garamond", serif',
-                    fontWeight: 400,
-                  }}
-                >
-                  Radiant,
-                </Box>{' '}
-                Timeless Self.
+                Your Beauty, <br />
+                <Box component="span" sx={{ color: '#B76E79', fontStyle: 'italic', fontFamily: '"Cormorant Garamond", serif', fontWeight: 400 }}>
+                  Your Power!
+                </Box>
               </Typography>
 
               <Typography
                 variant="body1"
                 sx={{
                   color: '#555555',
-                  fontSize: { xs: '1rem', md: '1.18rem' },
+                  fontSize: { xs: '1rem', md: '1.15rem' },
                   lineHeight: 1.8,
-                  maxWidth: 600,
+                  maxWidth: 540,
                   mb: 4.5,
                 }}
               >
-                Mastered by international beauty artist Mariyam. Specializing in high-definition red carpet glamour, camera-flash-proof bridal finishes, and editorial artistry that enhances your natural bone structure without the mask.
+                Experience professional cosmetic performance fused with clinical dermatological skincare. Discover your exact foundation match and personalized routines through AI-guided consultation.
               </Typography>
 
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mb: 5 }}>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mb: 4 }}>
                 <Button
                   component={Link}
-                  to="/booking"
+                  to="/shop"
                   variant="contained"
                   color="primary"
                   size="large"
-                  startIcon={<CalendarMonthIcon />}
                   sx={{
                     px: 4,
                     py: 1.6,
                     borderRadius: '28px',
-                    fontSize: '0.9rem',
                     fontWeight: 700,
-                    letterSpacing: '0.1em',
+                    letterSpacing: '0.08em',
                   }}
                 >
-                  Reserve Your Date
+                  Shop Best Sellers
                 </Button>
 
                 <Button
                   component={Link}
-                  to="/portfolio"
+                  to="/quiz"
                   variant="outlined"
                   color="primary"
                   size="large"
-                  endIcon={<ArrowForwardIcon />}
+                  startIcon={<AutoAwesomeIcon sx={{ color: '#D4A373' }} />}
                   sx={{
                     px: 3.5,
                     py: 1.6,
                     borderRadius: '28px',
-                    fontSize: '0.9rem',
-                    fontWeight: 600,
+                    fontWeight: 700,
                     letterSpacing: '0.08em',
                   }}
                 >
-                  View Lookbook
+                  Take 60-Sec Beauty Quiz
                 </Button>
               </Box>
 
-              {/* Accolades & Social Proof */}
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 2, sm: 4 }, flexWrap: 'wrap' }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <DiamondIcon sx={{ color: '#D4A373', fontSize: 20 }} />
-                  <Box>
-                    <Typography variant="body2" sx={{ fontWeight: 700, color: '#1a1a1a', lineHeight: 1 }}>
-                      500+
-                    </Typography>
-                    <Typography variant="caption" sx={{ color: '#777' }}>
-                      Luxury Brides
-                    </Typography>
-                  </Box>
+              {/* Trust markers */}
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 3, pt: 2, borderTop: '1px solid #ebe5df', flexWrap: 'wrap' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.8 }}>
+                  <StarIcon sx={{ color: '#D4A373', fontSize: 18 }} />
+                  <Typography variant="caption" sx={{ fontWeight: 600, color: '#333' }}>
+                    4.9/5 from 4,500+ Verified Reviews
+                  </Typography>
                 </Box>
-
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <VerifiedIcon sx={{ color: '#B76E79', fontSize: 20 }} />
-                  <Box>
-                    <Typography variant="body2" sx={{ fontWeight: 700, color: '#1a1a1a', lineHeight: 1 }}>
-                      100%
-                    </Typography>
-                    <Typography variant="caption" sx={{ color: '#777' }}>
-                      Cruelty-Free Kit
-                    </Typography>
-                  </Box>
-                </Box>
-
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <StarIcon sx={{ color: '#D4A373', fontSize: 20 }} />
-                  <Box>
-                    <Typography variant="body2" sx={{ fontWeight: 700, color: '#1a1a1a', lineHeight: 1 }}>
-                      5.0 ★★★★★
-                    </Typography>
-                    <Typography variant="caption" sx={{ color: '#777' }}>
-                      Top Rated Studio
-                    </Typography>
-                  </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.8 }}>
+                  <VerifiedUserOutlinedIcon sx={{ color: '#B76E79', fontSize: 18 }} />
+                  <Typography variant="caption" sx={{ fontWeight: 600, color: '#333' }}>
+                    100% Authentic & Cruelty-Free
+                  </Typography>
                 </Box>
               </Box>
             </Grid>
 
-            {/* Right Hero Images Composition */}
-            <Grid item xs={12} md={5}>
-              <Box sx={{ position: 'relative', width: '100%', maxWidth: 480, mx: 'auto' }}>
-                {/* Main Hero Card */}
+            {/* Right Hero Image Showcase */}
+            <Grid item xs={12} md={6}>
+              <Box sx={{ position: 'relative', maxWidth: 540, mx: 'auto' }}>
                 <Card
                   sx={{
-                    overflow: 'hidden',
                     borderRadius: 4,
+                    overflow: 'hidden',
                     boxShadow: '0 20px 50px rgba(0,0,0,0.12)',
                     border: '4px solid #ffffff',
                   }}
                 >
                   <CardMedia
                     component="img"
-                    image="https://images.unsplash.com/photo-1596704017254-9b121068fb31?auto=format&fit=crop&w=800&q=80"
-                    alt="Bridal Makeup Artistry"
-                    sx={{ height: { xs: 380, sm: 480, md: 540 }, objectFit: 'cover' }}
+                    image={HERO_ASSETS.luxuryFlatlay}
+                    alt="Mariyam Maquillage Haute Cosmetics & Skincare"
+                    onError={(e: any) => {
+                      e.target.onerror = null;
+                      e.target.src = 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80';
+                    }}
+                    sx={{ height: { xs: 340, sm: 460, md: 520 }, objectFit: 'cover' }}
                   />
                 </Card>
 
-                {/* Floating Floating Badge Card */}
+                {/* Floating promo badge */}
                 <Paper
                   sx={{
                     position: 'absolute',
-                    bottom: { xs: -20, sm: 30 },
-                    left: { xs: 10, sm: -30 },
-                    p: 2,
+                    bottom: { xs: -15, sm: 25 },
+                    left: { xs: 10, sm: -25 },
+                    p: 2.2,
                     borderRadius: 3,
-                    bgcolor: 'rgba(255, 255, 255, 0.95)',
+                    bgcolor: 'rgba(255, 255, 255, 0.96)',
                     backdropFilter: 'blur(8px)',
-                    border: '1px solid rgba(183, 110, 121, 0.3)',
-                    boxShadow: '0 12px 30px rgba(0,0,0,0.1)',
+                    boxShadow: '0 12px 35px rgba(0,0,0,0.1)',
+                    border: '1px solid rgba(183, 110, 121, 0.25)',
                     maxWidth: 240,
                   }}
                 >
-                  <Typography variant="overline" sx={{ color: '#B76E79', fontWeight: 700, letterSpacing: '0.15em', display: 'block', mb: 0.5 }}>
-                    Featured Look
+                  <Typography variant="caption" sx={{ color: '#E91E63', fontWeight: 700, letterSpacing: '0.1em', display: 'block' }}>
+                    LIMITED OFFER
                   </Typography>
-                  <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#1a1a1a', lineHeight: 1.2 }}>
-                    The Royal Renaissance Bride
+                  <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#1a1a1a', mt: 0.2 }}>
+                    Complimentary Mini 24K Mist
                   </Typography>
-                  <Typography variant="caption" sx={{ color: '#666', mt: 0.5, display: 'block' }}>
-                    14-Hour Transfer-Resistant Velvet Glow
+                  <Typography variant="caption" sx={{ color: '#777', display: 'block', mt: 0.5 }}>
+                    With any ₹1,499+ purchase. Automatic at checkout.
                   </Typography>
                 </Paper>
               </Box>
@@ -240,224 +188,96 @@ export const HomePage: React.FC = () => {
         </Container>
       </Box>
 
-      {/* Featured Looks Gallery Section */}
-      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: '#FAF8F5' }}>
+      {/* 2. Three Value Pillars */}
+      <Box sx={{ bgcolor: '#ffffff', py: 4, borderBottom: '1px solid rgba(183, 110, 121, 0.12)' }}>
         <Container maxWidth="xl">
-          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'space-between', alignItems: { xs: 'flex-start', md: 'flex-end' }, mb: 6 }}>
-            <Box>
-              <Typography variant="overline" sx={{ color: '#B76E79', fontWeight: 700, letterSpacing: '0.2em' }}>
-                The Lookbook
-              </Typography>
-              <Typography variant="h2" sx={{ fontSize: { xs: '2.2rem', md: '3.2rem' }, fontWeight: 700, color: '#1a1a1a', mt: 0.5 }}>
-                Signature Masterpieces
-              </Typography>
-            </Box>
-            <Button
-              component={Link}
-              to="/portfolio"
-              endIcon={<ArrowForwardIcon />}
-              sx={{ color: '#8C4852', fontWeight: 700, mt: { xs: 2, md: 0 }, letterSpacing: '0.08em' }}
-            >
-              Explore Complete Portfolio (8+ Looks)
-            </Button>
+          <Grid container spacing={4} justifyContent="space-between">
+            {[
+              {
+                icon: <LocalShippingOutlinedIcon sx={{ color: '#B76E79', fontSize: 28 }} />,
+                title: 'Complimentary Luxury Delivery',
+                desc: 'Free express shipping on all orders over ₹999 in thermal protective packaging.',
+              },
+              {
+                icon: <AutoAwesomeIcon sx={{ color: '#D4A373', fontSize: 28 }} />,
+                title: 'AI Shade & Routine Matcher',
+                desc: 'Tailored pigment mapping matching skin undertone, coverage, and barrier health.',
+              },
+              {
+                icon: <SpaOutlinedIcon sx={{ color: '#B76E79', fontSize: 28 }} />,
+                title: 'Clean, Cruelty-Free Actives',
+                desc: 'White truffle, ceramides, and peptides tested safe for delicate sensitive skin.',
+              },
+            ].map((pillar, idx) => (
+              <Grid item xs={12} md={4} key={idx}>
+                <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2 }}>
+                  <Box sx={{ p: 1.2, bgcolor: '#FAF8F5', borderRadius: 2 }}>{pillar.icon}</Box>
+                  <Box>
+                    <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#1a1a1a', mb: 0.3 }}>
+                      {pillar.title}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: '#666', lineHeight: 1.6 }}>
+                      {pillar.desc}
+                    </Typography>
+                  </Box>
+                </Box>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </Box>
+
+      {/* 3. Shop by Category Showcase */}
+      <Box sx={{ py: { xs: 8, md: 10 }, bgcolor: '#FAF8F5' }}>
+        <Container maxWidth="xl">
+          <Box sx={{ textAlign: 'center', mb: 6, maxWidth: 650, mx: 'auto' }}>
+            <Typography variant="overline" sx={{ color: '#B76E79', fontWeight: 700, letterSpacing: '0.2em' }}>
+              Explore The Catalog
+            </Typography>
+            <Typography variant="h2" sx={{ fontSize: { xs: '2.2rem', md: '3.2rem' }, fontWeight: 700, color: '#1a1a1a', mt: 0.5 }}>
+              Curated Beauty Categories
+            </Typography>
           </Box>
 
-          <Grid container spacing={4}>
-            {featuredLooks.map((look) => (
-              <Grid item xs={12} sm={6} md={3} key={look.id}>
+          <Grid container spacing={3}>
+            {CATEGORY_CARDS.map((cat) => (
+              <Grid item xs={12} sm={6} md={3} key={cat.title}>
                 <Card
-                  onClick={() => setSelectedLook(look)}
+                  component={Link}
+                  to={`/shop?cat=${cat.cat}`}
                   sx={{
+                    textDecoration: 'none',
                     height: '100%',
-                    cursor: 'pointer',
                     borderRadius: 3,
                     overflow: 'hidden',
-                    transition: 'all 0.3s ease',
+                    position: 'relative',
+                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                     '&:hover': {
                       transform: 'translateY(-6px)',
                       boxShadow: '0 16px 36px rgba(183, 110, 121, 0.18)',
                     },
                   }}
                 >
-                  <Box sx={{ position: 'relative' }}>
+                  <Box sx={{ position: 'relative', height: 280 }}>
                     <CardMedia
                       component="img"
-                      image={look.imageUrl}
-                      alt={look.title}
-                      sx={{ height: 320, objectFit: 'cover' }}
+                      image={cat.image}
+                      alt={cat.title}
+                      sx={{ height: '100%', width: '100%', objectFit: 'cover' }}
                     />
-                    <Chip
-                      label={look.category}
-                      size="small"
+                    <Box
                       sx={{
                         position: 'absolute',
-                        top: 12,
-                        left: 12,
-                        bgcolor: 'rgba(255, 255, 255, 0.9)',
-                        fontWeight: 700,
-                        fontSize: '0.7rem',
-                        color: '#8C4852',
+                        inset: 0,
+                        background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 60%)',
                       }}
                     />
-                  </Box>
-                  <CardContent sx={{ p: 2.5 }}>
-                    <Typography variant="h6" sx={{ fontSize: '1.1rem', fontWeight: 700, color: '#1a1a1a', mb: 0.5, lineHeight: 1.3 }}>
-                      {look.title}
-                    </Typography>
-                    <Typography variant="caption" sx={{ color: '#777', display: 'block', mb: 1.5 }}>
-                      {look.clientType}
-                    </Typography>
-                    <Typography variant="body2" sx={{ color: '#555', fontSize: '0.85rem', lineHeight: 1.5, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                      {look.description}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </Box>
-
-      {/* Signature Services Section */}
-      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: '#FFFFFF', borderTop: '1px solid rgba(183, 110, 121, 0.12)', borderBottom: '1px solid rgba(183, 110, 121, 0.12)' }}>
-        <Container maxWidth="xl">
-          <Box sx={{ textAlign: 'center', mb: 7, maxWidth: 700, mx: 'auto' }}>
-            <Typography variant="overline" sx={{ color: '#B76E79', fontWeight: 700, letterSpacing: '0.2em' }}>
-              Service Offerings
-            </Typography>
-            <Typography variant="h2" sx={{ fontSize: { xs: '2.2rem', md: '3.2rem' }, fontWeight: 700, color: '#1a1a1a', mt: 0.5, mb: 2 }}>
-              Artistry Crafted For Your Moments
-            </Typography>
-            <Typography variant="body1" sx={{ color: '#666', lineHeight: 1.8 }}>
-              Each experience is customized from skin preparation to the final setting mist, ensuring you look breathtaking both in personal presence and under high-resolution studio cameras.
-            </Typography>
-          </Box>
-
-          <Grid container spacing={4} justifyContent="center">
-            {SERVICE_PACKAGES.slice(0, 3).map((pkg) => (
-              <Grid item xs={12} md={4} key={pkg.id}>
-                <Card
-                  sx={{
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    p: 3.5,
-                    borderRadius: 3,
-                    position: 'relative',
-                    border: pkg.popular ? '2px solid #B76E79' : '1px solid rgba(183, 110, 121, 0.15)',
-                    bgcolor: pkg.popular ? '#FAF8F5' : '#ffffff',
-                  }}
-                >
-                  {pkg.popular && (
-                    <Chip
-                      label="Most Requested"
-                      size="small"
-                      sx={{
-                        position: 'absolute',
-                        top: 16,
-                        right: 16,
-                        bgcolor: '#B76E79',
-                        color: '#fff',
-                        fontWeight: 700,
-                        fontSize: '0.68rem',
-                        letterSpacing: '0.08em',
-                      }}
-                    />
-                  )}
-                  <Typography variant="overline" sx={{ color: '#8C4852', fontWeight: 700, letterSpacing: '0.12em' }}>
-                    {pkg.category}
-                  </Typography>
-                  <Typography variant="h4" sx={{ fontWeight: 700, color: '#1a1a1a', mt: 0.5, mb: 1, fontSize: '1.6rem' }}>
-                    {pkg.title}
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: '#666', mb: 3 }}>
-                    {pkg.subtitle}
-                  </Typography>
-
-                  <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 1, mb: 3 }}>
-                    <Typography variant="h3" sx={{ fontWeight: 700, color: '#B76E79' }}>
-                      ${pkg.price}
-                    </Typography>
-                    <Typography variant="caption" sx={{ color: '#888' }}>
-                      / {pkg.duration}
-                    </Typography>
-                  </Box>
-
-                  <Box sx={{ flex: 1, mb: 3 }}>
-                    {pkg.features.slice(0, 4).map((feat, idx) => (
-                      <Box key={idx} sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.2, mb: 1.5 }}>
-                        <AutoAwesomeIcon sx={{ color: '#D4A373', fontSize: 16, mt: 0.3 }} />
-                        <Typography variant="body2" sx={{ color: '#444', fontSize: '0.88rem' }}>
-                          {feat}
-                        </Typography>
-                      </Box>
-                    ))}
-                  </Box>
-
-                  <Button
-                    component={Link}
-                    to="/booking"
-                    variant={pkg.popular ? 'contained' : 'outlined'}
-                    color="primary"
-                    fullWidth
-                    sx={{ py: 1.3, borderRadius: 2, fontWeight: 700 }}
-                  >
-                    Select Experience
-                  </Button>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-
-          <Box sx={{ textAlign: 'center', mt: 5 }}>
-            <Button
-              component={Link}
-              to="/services"
-              variant="text"
-              sx={{ color: '#8C4852', fontWeight: 700, letterSpacing: '0.08em' }}
-              endIcon={<ArrowForwardIcon />}
-            >
-              View All 5 Services & Add-Ons
-            </Button>
-          </Box>
-        </Container>
-      </Box>
-
-      {/* Interactive Shade Finder Tool */}
-      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: '#FAF8F5' }}>
-        <Container maxWidth="lg">
-          <ShadeMatchTool />
-        </Container>
-      </Box>
-
-      {/* Testimonials */}
-      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: '#FFFFFF', borderTop: '1px solid rgba(183, 110, 121, 0.12)' }}>
-        <Container maxWidth="xl">
-          <Box sx={{ textAlign: 'center', mb: 7, maxWidth: 600, mx: 'auto' }}>
-            <Typography variant="overline" sx={{ color: '#B76E79', fontWeight: 700, letterSpacing: '0.2em' }}>
-              Client Testimonials
-            </Typography>
-            <Typography variant="h2" sx={{ fontSize: { xs: '2.2rem', md: '3.2rem' }, fontWeight: 700, color: '#1a1a1a', mt: 0.5 }}>
-              Praised by Brides & Creatives
-            </Typography>
-          </Box>
-
-          <Grid container spacing={4}>
-            {TESTIMONIALS.map((test) => (
-              <Grid item xs={12} md={4} key={test.id}>
-                <Card sx={{ height: '100%', p: 3.5, borderRadius: 3, display: 'flex', flexDirection: 'column', bgcolor: '#FAF8F5' }}>
-                  <Rating value={test.rating} readOnly sx={{ color: '#D4A373', mb: 2 }} />
-                  <Typography variant="body1" sx={{ color: '#444', fontStyle: 'italic', lineHeight: 1.8, mb: 3, flex: 1 }}>
-                    &ldquo;{test.comment}&rdquo;
-                  </Typography>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                    <Avatar src={test.photoUrl} alt={test.clientName} sx={{ width: 48, height: 48, border: '2px solid #B76E79' }} />
-                    <Box>
-                      <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#1a1a1a' }}>
-                        {test.clientName}
+                    <Box sx={{ position: 'absolute', bottom: 20, left: 20, right: 20, color: '#fff' }}>
+                      <Typography variant="h5" sx={{ fontWeight: 700, fontFamily: '"Cormorant Garamond", serif', fontSize: '1.45rem' }}>
+                        {cat.title}
                       </Typography>
-                      <Typography variant="caption" sx={{ color: '#777' }}>
-                        {test.roleOrEvent}
+                      <Typography variant="caption" sx={{ color: '#eee', display: 'block', mt: 0.4 }}>
+                        {cat.subtitle}
                       </Typography>
                     </Box>
                   </Box>
@@ -468,8 +288,184 @@ export const HomePage: React.FC = () => {
         </Container>
       </Box>
 
-      {/* Look Detail Modal */}
-      <LookDetailModal look={selectedLook} onClose={() => setSelectedLook(null)} />
+      {/* 4. Trending Bestsellers Grid */}
+      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: '#ffffff' }}>
+        <Container maxWidth="xl">
+          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'space-between', alignItems: { xs: 'flex-start', sm: 'flex-end' }, mb: 5 }}>
+            <Box>
+              <Typography variant="overline" sx={{ color: '#B76E79', fontWeight: 700, letterSpacing: '0.2em' }}>
+                Most Coveted
+              </Typography>
+              <Typography variant="h2" sx={{ fontSize: { xs: '2.2rem', md: '3.2rem' }, fontWeight: 700, color: '#1a1a1a', mt: 0.5 }}>
+                Trending Bestsellers
+              </Typography>
+            </Box>
+            <Button
+              component={Link}
+              to="/shop"
+              endIcon={<ArrowForwardIcon />}
+              sx={{ color: '#8C4852', fontWeight: 700, mt: { xs: 1.5, sm: 0 } }}
+            >
+              View All Products
+            </Button>
+          </Box>
+
+          <Grid container spacing={3.5}>
+            {bestsellers.map((product) => (
+              <Grid item xs={12} sm={6} md={3} key={product.id}>
+                <ProductCard product={product} />
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </Box>
+
+      {/* 5. Interactive AI Suite Banner */}
+      <Box sx={{ py: { xs: 8, md: 10 }, bgcolor: '#161616', color: '#ffffff' }}>
+        <Container maxWidth="xl">
+          <Grid container spacing={6} alignItems="center">
+            <Grid item xs={12} md={7}>
+              <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, px: 2, py: 0.6, bgcolor: 'rgba(212, 163, 115, 0.15)', borderRadius: 20, mb: 2 }}>
+                <AutoAwesomeIcon sx={{ color: '#D4A373', fontSize: 16 }} />
+                <Typography variant="caption" sx={{ color: '#D4A373', fontWeight: 700, letterSpacing: '0.15em' }}>
+                  AI-Powered Precision Beauty
+                </Typography>
+              </Box>
+
+              <Typography variant="h2" sx={{ fontSize: { xs: '2.4rem', md: '3.5rem' }, fontWeight: 700, color: '#fff', mb: 2.5, lineHeight: 1.15 }}>
+                Take The Guesswork Out Of Your Complexion
+              </Typography>
+
+              <Typography variant="body1" sx={{ color: '#bbb', lineHeight: 1.8, mb: 4, maxWidth: 560 }}>
+                Our 60-second diagnostic analyzes your undertone, coverage preference, and skin barrier health to prescribe an exact foundation match and custom AM/PM skincare regimen.
+              </Typography>
+
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+                <Button
+                  component={Link}
+                  to="/quiz"
+                  variant="contained"
+                  sx={{
+                    bgcolor: '#D4A373',
+                    color: '#1a1a1a',
+                    fontWeight: 700,
+                    px: 3.5,
+                    py: 1.4,
+                    borderRadius: 2,
+                    '&:hover': { bgcolor: '#c39263' },
+                  }}
+                >
+                  Launch Beauty Quiz
+                </Button>
+
+                <Button
+                  component={Link}
+                  to="/routine-builder"
+                  variant="outlined"
+                  sx={{
+                    borderColor: '#D4A373',
+                    color: '#D4A373',
+                    fontWeight: 700,
+                    px: 3.5,
+                    py: 1.4,
+                    borderRadius: 2,
+                    '&:hover': { borderColor: '#fff', color: '#fff' },
+                  }}
+                >
+                  Generate Skincare Routine
+                </Button>
+              </Box>
+            </Grid>
+
+            <Grid item xs={12} md={5}>
+              <Paper
+                sx={{
+                  p: 4,
+                  borderRadius: 3,
+                  bgcolor: 'rgba(255, 255, 255, 0.05)',
+                  border: '1px solid rgba(212, 163, 115, 0.3)',
+                  backdropFilter: 'blur(10px)',
+                }}
+              >
+                <Typography variant="h5" sx={{ color: '#D4A373', fontFamily: '"Cormorant Garamond", serif', mb: 1.5, fontWeight: 700 }}>
+                  24/7 Virtual Beauty Concierge
+                </Typography>
+                <Typography variant="body2" sx={{ color: '#ccc', lineHeight: 1.7, mb: 3 }}>
+                  Need instant advice while shopping? Ask Mariyam AI about ingredient interactions, foundation matching, or wedding day skin prep.
+                </Typography>
+                <Button
+                  variant="contained"
+                  fullWidth
+                  onClick={() => setIsAdvisorOpen(true)}
+                  startIcon={<AutoAwesomeIcon />}
+                  sx={{
+                    bgcolor: '#B76E79',
+                    color: '#fff',
+                    py: 1.3,
+                    fontWeight: 700,
+                    '&:hover': { bgcolor: '#8C4852' },
+                  }}
+                >
+                  Open Live Chat Advisor
+                </Button>
+              </Paper>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+
+      {/* 6. Beauty Journal Teaser */}
+      <Box sx={{ py: { xs: 8, md: 10 }, bgcolor: '#FAF8F5' }}>
+        <Container maxWidth="xl">
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', mb: 5 }}>
+            <Box>
+              <Typography variant="overline" sx={{ color: '#B76E79', fontWeight: 700, letterSpacing: '0.2em' }}>
+                Editorial Wisdom
+              </Typography>
+              <Typography variant="h2" sx={{ fontSize: { xs: '2.2rem', md: '3rem' }, fontWeight: 700, color: '#1a1a1a', mt: 0.5 }}>
+                From The Beauty Journal
+              </Typography>
+            </Box>
+            <Button component={Link} to="/journal" endIcon={<ArrowForwardIcon />} sx={{ color: '#8C4852', fontWeight: 700 }}>
+              Read All Articles
+            </Button>
+          </Box>
+
+          <Grid container spacing={4}>
+            {INITIAL_ARTICLES.slice(0, 3).map((art) => (
+              <Grid item xs={12} md={4} key={art.id}>
+                <Card
+                  component={Link}
+                  to={`/journal/${art.slug}`}
+                  sx={{
+                    textDecoration: 'none',
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    borderRadius: 3,
+                    bgcolor: '#ffffff',
+                    transition: 'transform 0.25s ease',
+                    '&:hover': { transform: 'translateY(-4px)' },
+                  }}
+                >
+                  <CardMedia component="img" image={art.coverImage} alt={art.title} sx={{ height: 220, objectFit: 'cover' }} />
+                  <CardContent sx={{ p: 3, flex: 1, display: 'flex', flexDirection: 'column' }}>
+                    <Typography variant="caption" sx={{ color: '#8C4852', fontWeight: 700, letterSpacing: '0.08em' }}>
+                      {art.category} · {art.readTime}
+                    </Typography>
+                    <Typography variant="h6" sx={{ color: '#1a1a1a', fontWeight: 700, my: 1, lineHeight: 1.3 }}>
+                      {art.title}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: '#666', lineHeight: 1.6, flex: 1 }}>
+                      {art.excerpt}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </Box>
     </Box>
   );
 };

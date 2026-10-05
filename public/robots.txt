@@ -1,0 +1,9 @@
+# Mariyam Maquillage Production Robots Policy
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /checkout
+Disallow: /order/
+Disallow: /api/
+
+Sitemap: https://www.mariyammaquillage.com/sitemap.xml
